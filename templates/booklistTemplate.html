@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<title>Book list</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+</head>
+
+<body>
+<div class="col-md-4">
+<h1>Books on shelf</h1>
+</div>
+
+<table class="table table-striped">
+<tr>
+<th>Name</th>
+<th>Author</th>
+<th>Year</th>
+<th>ISBN</th>
+<th sec:authorize="hasRole('ADMIN')"> </th>
+		</tr>  
+    	<tr th:each = "book : ${books}">
+    		<td th:text="${book.bookTitle}"></td>
+    		<td th:text="${book.bookAuthor}"></td>
+    		<td th:text="${book.bookYear}"></td> 
+    		<td th:text="${book.bookIsbn}"></td>
+    		<td><a th:href="@{/edit/{id}(id=${book.id})}" class="btn btn-success">Edit</a></td>
+    		<td sec:authorize="hasRole('ADMIN')"><a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-danger">Delete</a></td>
+    	</tr>
+     </table>  	
+     
+     <a href="/addbook" class="btn btn-success">Add new book</a>
+     <a href="/logout" class="btn btn-danger">Log out</a>
+     </class>
+</body>
+</html>
